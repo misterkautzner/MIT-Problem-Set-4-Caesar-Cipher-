@@ -1,7 +1,12 @@
 # 6.00 Problem Set 4
 #
+# Name: John Kautzner
+# Collaborators: None
+# Time: 0:00
+#
 # Caesar Cipher Skeleton
 #
+
 import string
 import random
 
