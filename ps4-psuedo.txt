@@ -3,4 +3,18 @@ Your algorithms should be plain English explanations for the steps your program 
 Write out your algorithm for Problem 2 here:
 
 
+Iterate over the possible keys (0 - 26)
+Decode using the current key
+Separate text into words based on spacing
+Test each word to see if it's valid
+Total the number of valid words for the key
+Compare current total to the max total (so far)
+If the current total is greater than the max total,
+	set the value of max total to the current total
+Update the value of the max total key to the value of the
+	current key
+After trying all keys, return the max total key
+
+
+
 Write out your algorithm for Problem 4 here:
