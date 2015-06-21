@@ -495,6 +495,9 @@ def find_best_shifts(wordlist, text):
     >>> print apply_shifts(s, shifts)
     Do Androids Dream of Electric Sheep?
     """
+    ### TODO.
+
+    return find_best_shifts_rec(wordlist, text, 0)
 
 def find_best_shifts_rec(wordlist, text, start):
     """
@@ -511,6 +514,37 @@ def find_best_shifts_rec(wordlist, text, start):
     returns: list of tuples.  each tuple is (position in text, amount of shift)
     """
     ### TODO.
+
+    shifts = []
+
+    for shift in range(0, 27):
+        s = text[:start] + apply_shift(text[start:], shift)
+        print "shift = ", shift, "   s = ", s
+
+        word = ''
+
+        for i in range(start, len(s)):
+           # print "i = ", i, "    s[i] = ", s[i]
+            if((s[i] == ' ' or s[i] in set(string.punctuation)) and is_word(wordlist, word)):
+                print
+                print "word = ", word
+                print
+                find_best_shifts_rec(wordlist, s, i + 1)
+                
+                if(find_best_shifts_rec(wordlist, s, i + 1) == None):
+                   break
+
+                else:
+                   shifts = (i, shift) + shifts
+                   print "shifts = ", shifts
+                            
+            else:
+                word += s[i]
+               # print "shift = ", shift, "   word = ", word
+
+        
+
+    print "Final s = ", s
 
 
 def decrypt_fable():
