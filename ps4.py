@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 0:00
+# Time: 1:30
 #
 # Caesar Cipher Skeleton
 #
@@ -126,6 +126,101 @@ def build_coder(shift):
     (The order of the key-value pairs may be different.)
     """
     ### TODO.
+
+    code = {}
+
+    code.update({' ':chr(put_in_range(32, shift))})
+
+    for i in range(97, 123):
+        code.update({chr(i):chr(put_in_range(i, shift))})
+
+    for i in range(65, 91):
+        code.update({chr(i):chr(put_in_range(i, shift))})
+
+    return code
+
+shift = 3
+
+
+
+def test_build_coder_3():
+    """
+    Tests dictionary created by build_coder(3) against what it should be.
+    
+    Returns an affirmative message if all values in the build_coder(3) dict are correct.
+    Returns incorrect values and a negative message if the dictionary isn't correct.
+
+    Note: Doesn't return negative message or missing values if values are missing, so it can check a
+          partial dict.
+    """
+
+    trial = {' ': 'c', 'A': 'D', 'C': 'F', 'B': 'E', 'E': 'H', 'D': 'G', 'G': 'J',
+    'F': 'I', 'I': 'L', 'H': 'K', 'K': 'N', 'J': 'M', 'M': 'P', 'L': 'O',
+    'O': 'R', 'N': 'Q', 'Q': 'T', 'P': 'S', 'S': 'V', 'R': 'U', 'U': 'X',
+    'T': 'W', 'W': 'Z', 'V': 'Y', 'Y': 'A', 'X': ' ', 'Z': 'B', 'a': 'd',
+    'c': 'f', 'b': 'e', 'e': 'h', 'd': 'g', 'g': 'j', 'f': 'i', 'i': 'l',
+    'h': 'k', 'k': 'n', 'j': 'm', 'm': 'p', 'l': 'o', 'o': 'r', 'n': 'q',
+    'q': 't', 'p': 's', 's': 'v', 'r': 'u', 'u': 'x', 't': 'w', 'w': 'z',
+    'v': 'y', 'y': 'a', 'x': ' ', 'z': 'b'}
+
+    bc_dict = build_coder(3)
+    same = True
+
+    print
+
+    for key in bc_dict:
+        if(bc_dict[key] != trial[key]):
+            same = False
+            print "trial[", key, "] = ", trial[key], "  bc_dict[", key, "] = ", bc_dict[key]
+
+    if(same == False):
+        return "Dictionaries are NOT the same."
+
+    return "It checks out.  Dictionaries ARE the same."
+    
+
+def put_in_range(ord_number, shift):
+    """
+    Returns appropriate ord() number given an ord() number and the shift.
+    Useful for the numbers that go out of character range when shifted.
+    """
+    if(ord_number in range(65, 91)):
+       small = 65
+       big = 90
+
+    else:
+       small = 97
+       big = 122
+    
+
+    if(ord_number + shift == big + 1):  # When it maps to ' '
+        return 32
+
+    if(ord_number + shift > big + 1):   # When the mapping exceeds the end of the alphabet
+        return ord_number + shift - 27
+
+
+
+    elif(ord_number + shift < small):  # When the mapping falls short of the alphabet
+        if(ord_number + shift == small - 1): # Maps to ' '
+            return 32
+
+        if(ord_number == 32):
+            if(shift > 0):
+                return 96 + shift
+
+        if(shift < 0):
+            return big + 1 + shift
+                               
+        else:
+            return big + shift
+
+    else:                           # Normal (within range)
+        return ord_number + shift
+
+
+
+    
 
 def build_encoder(shift):
     """
