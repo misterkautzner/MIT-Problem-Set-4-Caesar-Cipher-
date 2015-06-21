@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 2:05
+# Time: 4:30
 #
 # Caesar Cipher Skeleton
 #
@@ -368,6 +368,72 @@ def find_best_shift(wordlist, text):
     'Hello, world!'
     """
     ### TODO
+
+    
+
+    key = 0
+    maxWords = 0
+    word = ''
+    currentWords = 0
+    k = ''
+
+    for s in range(0, 27):
+        dText = apply_coder(text, build_decoder(s)) + ' '
+       # print dText #
+
+        for character in dText:
+            if(character == ' ' or character in set(string.punctuation)):
+                if(is_word(wordlist, word)):
+                   # print
+                   # print "word = ", word
+                    currentWords += 1
+                    word = ''
+                   # print currentWords
+                    
+            else:
+                word += character
+
+        if(currentWords > maxWords):
+            maxWords = currentWords
+            key = s
+
+        word = ''
+        currentWords = 0
+
+   # print
+   # print apply_coder(text, build_decoder(key))
+    return key
+
+
+
+def test_find_bs(times, n):
+    """
+    Tests find_best_shift() with a chosen number of ciphertexts (each with n words)
+    Prints keys and plaintexts
+
+    times:  int
+    n:  int
+    """
+
+    print
+    
+    for t in range(0, times + 1):
+        cText = random_cT(wordlist, n)
+       # print "cText = ", cText
+        s = find_best_shift(wordlist, cText)
+        print "pText = ", apply_shift(cText, -s)
+        print
+
+def random_cT(wordlist, n):
+    """
+    Returns random ciphertext whose plaintext has n words
+
+    n:  int
+    """
+
+    s = random_string(wordlist, n) + " "
+    shift = random.randint(0, 26)
+    return apply_shift(s, shift)[:-1]
    
 #
 # Problem 3: Multi-level encryption.
