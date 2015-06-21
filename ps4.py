@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 4:50
+# Time: 7:00
 #
 # Caesar Cipher Skeleton
 #
@@ -519,32 +519,121 @@ def find_best_shifts_rec(wordlist, text, start):
 
     for shift in range(0, 27):
         s = text[:start] + apply_shift(text[start:], shift)
-        print "shift = ", shift, "   s = ", s
+        print "shift = ", shift, "    ", s
 
         word = ''
 
         for i in range(start, len(s)):
-           # print "i = ", i, "    s[i] = ", s[i]
+            
+            if(s[i] == ' ' and is_word(wordlist, s[start:i])):
+                print
+                print "s[start:i] = ", s[start:i]
+                #find_best_shifts_rec(wordlist, s, i+1)
+
+                value = find_best_shifts_rec(wordlist, s, i+1)
+                
+                if(value != None):
+                    shifts = [(i+1, shift)] + find_best_shifts_rec(wordlist, s, i+1) # start instead of i? or i+1?
+                    print "shifts = ", shifts
+                    return shifts
+
+                else:
+                    print "Breaker 1"
+                    break
+            
+
+            if(s[i] != ' ' and is_word(wordlist, s[start:])):
+                print  "s[start:] = ", s[start:]
+                print
+                print "returning [(", start, ",", shift, ")]"
+                print
+                print
+                return [(start, shift)]
+
+       # if(s[i] != ' ' and not is_word(wordlist, s[start:])):
+        #    print "Breaker 2"
+         #   break
+
+            
+    print
+    print
+    print "Here it comes!!!"
+    print
+    print
+        
+    for t in shifts:
+        print "t = ", t
+        if(t[1] == 0):
+            shifts.remove(t)
+
+    
+    print "Final s = ", s
+    return None
+
+"""
+    shifts = []
+
+    for shift in range(0, 27):
+        s = text[:start] + apply_shift(text[start:], shift)
+        print "shift = ", shift, "    ", s
+
+        word = ''
+
+        for i in range(start, len(s)):
+            print "i = ", i, "    s[i] = ", s[i]
+            if(s[i] in set(string.punctuation)):
+              print
+              print "Punctuation!!!"
+              print
+              
             if((s[i] == ' ' or s[i] in set(string.punctuation)) and is_word(wordlist, word)):
                 print
                 print "word = ", word
                 print
-                find_best_shifts_rec(wordlist, s, i + 1)
+                shifts += find_best_shifts_rec(wordlist, s, i + 1)
                 
                 if(find_best_shifts_rec(wordlist, s, i + 1) == None):
-                   break
+                    
+                    break
 
                 else:
-                   shifts = (i, shift) + shifts
+                   shifts = [(i, shift)] + shifts
                    print "shifts = ", shifts
+                   return shifts
+
                             
             else:
                 word += s[i]
-               # print "shift = ", shift, "   word = ", word
+                #print "shift = ", shift, "   word = ", word
+            
 
+            if(s[i] != ' ' and is_word(wordlist, s[start:])):
+                print  "s[start:] = ", s[start:]
+                print
+                print "The end!!!!"
+                print
+                print
+                return [(start, shift)]
+
+            
+    print
+    print
+    print "Here it comes!!!"
+    print
+    print
         
+    for t in shifts:
+        print "t = ", t
+        if(t[1] == 0):
+            shifts.remove(t)
 
+    
     print "Final s = ", s
+    return None
+
+shifts = [(2, 21), (11, 9), (17, 11), (20, 0), (29, 0), (30, 0)]
+"""
+    
 
 
 def decrypt_fable():
