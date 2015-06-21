@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 7:00
+# Time: 9:00
 #
 # Caesar Cipher Skeleton
 #
@@ -522,123 +522,34 @@ def find_best_shifts_rec(wordlist, text, start):
     for shift in range(0, 27):
         
         s = text[:start] + apply_shift(text[start:], shift)
-        print "shift = ", shift, "    ", s
+        #print "shift = ", shift, "    ", s
 
         word = ''
         
         for i in range(start, len(s)):
             
             if(s[i] == ' ' and is_word(wordlist, s[start:i])):
-                print
-                print "s[start:i] = ", s[start:i]
-                #find_best_shifts_rec(wordlist, s, i+1)
-
-              #  print "s = ", s
-               # print "i+1 = ", i+1
+               # print "s[start:i] = ", s[start:i]
 
                 value = find_best_shifts_rec(wordlist, s, i+1)
                 
                 if(value != None):
-                    shifts = [(i+1, shift)] + find_best_shifts_rec(wordlist, s, i+1) # start instead of i? or i+1?
-                    print "shifts = ", shifts
+                    if(shift != 0):
+                        shifts = [(start, shift)] + value
+                 #   print "shifts = ", shifts
                     return shifts
 
                 else:
-                    print "Breaker 1"
+              #      print "Breaker 1"
                     break
             
 
             if(s[i] != ' ' and is_word(wordlist, s[start:])):
-                print "s[start:] = ", s[start:]
-                print
-                print "returning [(", start, ",", shift, ")]"
-                print
-                print
-                return [(start, shift)]
+               # print "s[start:] = ", s[start:]
+               # print "returning []"
+                return []
 
-       # if(s[i] != ' ' and not is_word(wordlist, s[start:])):
-        #    print "Breaker 2"
-         #   break
-
-            
-    print
-    print
-    print "Here it comes!!!"
-    print
-    print
-        
-    for t in shifts:
-        print "t = ", t
-        if(t[1] == 0):
-            shifts.remove(t)
-
-    
-    print "Final s = ", s
     return None
-
-"""
-    shifts = []
-
-    for shift in range(0, 27):
-        s = text[:start] + apply_shift(text[start:], shift)
-        print "shift = ", shift, "    ", s
-
-        word = ''
-
-        for i in range(start, len(s)):
-            print "i = ", i, "    s[i] = ", s[i]
-            if(s[i] in set(string.punctuation)):
-              print
-              print "Punctuation!!!"
-              print
-              
-            if((s[i] == ' ' or s[i] in set(string.punctuation)) and is_word(wordlist, word)):
-                print
-                print "word = ", word
-                print
-                shifts += find_best_shifts_rec(wordlist, s, i + 1)
-                
-                if(find_best_shifts_rec(wordlist, s, i + 1) == None):
-                    
-                    break
-
-                else:
-                   shifts = [(i, shift)] + shifts
-                   print "shifts = ", shifts
-                   return shifts
-
-                            
-            else:
-                word += s[i]
-                #print "shift = ", shift, "   word = ", word
-            
-
-            if(s[i] != ' ' and is_word(wordlist, s[start:])):
-                print  "s[start:] = ", s[start:]
-                print
-                print "The end!!!!"
-                print
-                print
-                return [(start, shift)]
-
-            
-    print
-    print
-    print "Here it comes!!!"
-    print
-    print
-        
-    for t in shifts:
-        print "t = ", t
-        if(t[1] == 0):
-            shifts.remove(t)
-
-    
-    print "Final s = ", s
-    return None
-
-shifts = [(2, 21), (11, 9), (17, 11), (20, 0), (29, 0), (30, 0)]
-"""
     
 
 
