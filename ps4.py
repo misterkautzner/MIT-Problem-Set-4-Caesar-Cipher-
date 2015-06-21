@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 4:30
+# Time: 4:50
 #
 # Caesar Cipher Skeleton
 #
@@ -455,6 +455,12 @@ def apply_shifts(text, shifts):
     'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
     """
     ### TODO.
+
+    for s in shifts:
+       # print "untouched = ", text[:s[0]], "   changed = ", apply_shift(text[s[0]:], s[1])
+        text = text[:s[0]] + apply_shift(text[s[0]:], s[1])
+
+    return text
  
 #
 # Problem 4: Multi-level decryption.
