@@ -18,3 +18,11 @@ After trying all keys, return the max total key
 
 
 Write out your algorithm for Problem 4 here:
+
+Find the best shift()
+record the shift
+count number of valid words
+if all words are valid, return the shifts
+
+Call Find the best shifts() with the end of the last valid word
+	as the starting point
