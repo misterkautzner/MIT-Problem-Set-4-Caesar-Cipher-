@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 1:30
+# Time: 1:45
 #
 # Caesar Cipher Skeleton
 #
@@ -139,8 +139,6 @@ def build_coder(shift):
 
     return code
 
-shift = 3
-
 
 
 def test_build_coder_3():
@@ -184,11 +182,14 @@ def put_in_range(ord_number, shift):
     Returns appropriate ord() number given an ord() number and the shift.
     Useful for the numbers that go out of character range when shifted.
     """
-    if(ord_number in range(65, 91)):
+    if(shift < 0):      # Converts negative shifts into a positive shift
+        shift += 27
+    
+    if(ord_number in range(65, 91)):  # Capital range
        small = 65
        big = 90
 
-    else:
+    else:       # Lowercase range
        small = 97
        big = 122
     
@@ -201,19 +202,19 @@ def put_in_range(ord_number, shift):
 
 
 
-    elif(ord_number + shift < small):  # When the mapping falls short of the alphabet
-        if(ord_number + shift == small - 1): # Maps to ' '
-            return 32
+ #   elif(ord_number + shift < small):  # When the mapping falls short of the alphabet
+  #      if(ord_number + shift == small - 1): # Maps to ' '
+   #         return 32
 
-        if(ord_number == 32):
-            if(shift > 0):
-                return 96 + shift
+    if(ord_number == 32):
+        if(shift >= 0):
+            return 96 + shift
 
-        if(shift < 0):
-            return big + 1 + shift
+  #      if(shift < 0):
+   #         return big + 1 + shift
                                
-        else:
-            return big + shift
+  #  else:
+   #     return big + shift
 
     else:                           # Normal (within range)
         return ord_number + shift
@@ -250,6 +251,8 @@ def build_encoder(shift):
     HINT : Use build_coder.
     """
     ### TODO.
+
+    
 
 def build_decoder(shift):
     """
