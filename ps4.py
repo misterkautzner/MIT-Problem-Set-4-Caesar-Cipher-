@@ -2,7 +2,7 @@
 #
 # Name: John Kautzner
 # Collaborators: None
-# Time: 1:45
+# Time: 2:05
 #
 # Caesar Cipher Skeleton
 #
@@ -181,7 +181,12 @@ def put_in_range(ord_number, shift):
     """
     Returns appropriate ord() number given an ord() number and the shift.
     Useful for the numbers that go out of character range when shifted.
+
+    shift:    -27 < int < 27
     """
+    assert shift > -27
+    assert shift < 27
+    
     if(shift < 0):      # Converts negative shifts into a positive shift
         shift += 27
     
@@ -252,6 +257,11 @@ def build_encoder(shift):
     """
     ### TODO.
 
+    assert shift >= 0
+    return build_coder(shift)
+
+    # I'm not sure what the difference between these to functions is supposed to be
+    #   other than the fact that this one only accepts positive values.
     
 
 def build_decoder(shift):
@@ -283,7 +293,11 @@ def build_decoder(shift):
     HINT : Use build_coder.
     """
     ### TODO.
- 
+
+    shift = -(shift)
+    return build_coder(shift)
+
+
 
 def apply_coder(text, coder):
     """
@@ -300,6 +314,17 @@ def apply_coder(text, coder):
     'Hello, world!'
     """
     ### TODO.
+
+    newText = ''
+
+    for character in text:
+        if(character in coder):
+            newText += coder[character]
+
+        else:
+            newText += character
+
+    return newText
   
 
 def apply_shift(text, shift):
@@ -320,6 +345,8 @@ def apply_shift(text, shift):
     'Apq hq hiham a.'
     """
     ### TODO.
+
+    return apply_coder(text, build_coder(shift))
    
 #
 # Problem 2: Codebreaking.
