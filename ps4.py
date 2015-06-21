@@ -212,11 +212,11 @@ def put_in_range(ord_number, shift):
    #         return 32
 
     if(ord_number == 32):
-        if(shift >= 0):
+        if(shift > 0):
             return 96 + shift
 
-  #      if(shift < 0):
-   #         return big + 1 + shift
+        else:
+            return 32
                                
   #  else:
    #     return big + shift
@@ -512,23 +512,29 @@ def find_best_shifts_rec(wordlist, text, start):
     text: scambled text to try to find the words for
     start: where to start looking at shifts
     returns: list of tuples.  each tuple is (position in text, amount of shift)
+
+    find_best_shifts_rec(wordlist, 'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?', 0)
     """
     ### TODO.
 
     shifts = []
 
     for shift in range(0, 27):
+        
         s = text[:start] + apply_shift(text[start:], shift)
         print "shift = ", shift, "    ", s
 
         word = ''
-
+        
         for i in range(start, len(s)):
             
             if(s[i] == ' ' and is_word(wordlist, s[start:i])):
                 print
                 print "s[start:i] = ", s[start:i]
                 #find_best_shifts_rec(wordlist, s, i+1)
+
+              #  print "s = ", s
+               # print "i+1 = ", i+1
 
                 value = find_best_shifts_rec(wordlist, s, i+1)
                 
@@ -543,7 +549,7 @@ def find_best_shifts_rec(wordlist, text, start):
             
 
             if(s[i] != ' ' and is_word(wordlist, s[start:])):
-                print  "s[start:] = ", s[start:]
+                print "s[start:] = ", s[start:]
                 print
                 print "returning [(", start, ",", shift, ")]"
                 print
